@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Processing Payment — Technova{% endblock %}
+{% block content %}
+<div class="container py-5 text-center">
+  <div class="display-1 mb-3 text-warning"><i class="fa fa-clock"></i></div>
+  <h2>Awaiting M-Pesa Confirmation</h2>
+  <p class="lead">Please complete the payment prompt on your phone. We’re confirming your order.</p>
+  <div id="status" class="mt-3">Checking status...</div>
+  <a class="btn btn-outline-dark mt-4" href="/">Back to Home</a>
+</div>
+<script>
+  const statusDiv = document.getElementById('status');
+  function check() {
+    fetch('{{ url_for("order_status", order_id=order_id) }}').then(r=>r.json()).then(o=>{
+      statusDiv.textContent = `Status: ${o.status}${o.desc ? " — "+o.desc : ""}`;
+      if (o.status === 'PAID') {
+        window.location.href = '/success/{{ order_id }}';
+      } else if (o.status === 'FAILED') {
+        statusDiv.className = 'text-danger mt-3';
+      } else {
+        setTimeout(check, 4000);
+      }
+    }).catch(()=>setTimeout(check, 5000));
+  }
+  check();
+</script>
+{% endblock %}

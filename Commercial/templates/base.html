@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>{% block title %}Technova Store{% endblock %}</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+  <link rel="icon" href="https://i.imgur.com/Oz6zGh3.png">
+  <style>
+    .hero { background: linear-gradient(180deg,#fff3cd 0%,#ffffff 100%); }
+    .product-card img{height:180px;object-fit:cover}
+    footer a{text-decoration:none}
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-warning">
+    <div class="container-fluid">
+      <a class="navbar-brand text-dark fw-bold" href="{{ url_for('home') }}">Technova</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav"><span class="navbar-toggler-icon"></span></button>
+      <div class="collapse navbar-collapse" id="nav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link text-dark {% if active=='home' %}fw-bold{% endif %}" href="{{ url_for('home') }}">Home</a></li>
+          <li class="nav-item"><a class="nav-link text-dark {% if active=='shop' %}fw-bold{% endif %}" href="{{ url_for('shop') }}">Products</a></li>
+          <li class="nav-item"><a class="nav-link text-dark {% if active=='services' %}fw-bold{% endif %}" href="{{ url_for('services') }}">Services</a></li>
+          <li class="nav-item"><a class="nav-link text-dark {% if active=='cart' %}fw-bold{% endif %}" href="{{ url_for('cart') }}"><i class="fa fa-cart-shopping me-1"></i>Cart</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  {% with msgs = get_flashed_messages() %}
+    {% if msgs %}
+      <div class="container mt-3">{% for m in msgs %}<div class="alert alert-info">{{ m }}</div>{% endfor %}</div>
+    {% endif %}
+  {% endwith %}
+
+  {% block content %}{% endblock %}
+
+  <footer class="bg-warning text-black mt-5 pt-5 pb-4">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-md-4">
+          <h5 class="fw-bold">About Technova</h5>
+          <p class="mb-1">We build commercial websites and digital brands.</p>
+          <p class="mb-0">Web Design, Graphic Design, KRA & eCitizen Support, SEO, Digital Marketing.</p>
+        </div>
+        <div class="col-md-4">
+          <h5 class="fw-bold">Contact</h5>
+          <p class="mb-1"><i class="fa fa-location-dot me-2"></i>Narok, Kenya</p>
+          <p class="mb-1"><i class="fa fa-phone me-2"></i>+254 111944838</p>
+          <p class="mb-0"><i class="fa fa-envelope me-2"></i>info@technova.co.ke</p>
+        </div>
+        <div class="col-md-4">
+          <h5 class="fw-bold">Follow</h5>
+          <a class="me-3 text-black" href="#"><i class="fab fa-facebook fa-lg"></i></a>
+          <a class="me-3 text-black" href="#"><i class="fab fa-instagram fa-lg"></i></a>
+          <a class="me-3 text-black" href="#"><i class="fab fa-x-twitter fa-lg"></i></a>
+          <a class="text-black" href="#"><i class="fab fa-linkedin fa-lg"></i></a>
+          <p class="mt-3 mb-0 small">&copy; {{ year }} Technova. All rights reserved.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

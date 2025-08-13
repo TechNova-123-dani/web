@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Order Success — Technova{% endblock %}
+{% block content %}
+<div class="container py-5 text-center">
+  <div class="display-1 text-success mb-3"><i class="fa fa-circle-check"></i></div>
+  <h2>Order Received!</h2>
+  <p class="lead">Thanks {{ name }} — we’ve received your order.</p>
+  <p>Total: <strong>{{ money(total) if total else "" }}</strong> &nbsp; Status: <span class="badge bg-success">{{ status }}</span></p>
+  <a class="btn btn-warning text-dark mt-3" href="{{ url_for('shop') }}">Continue Shopping</a>
+</div>
+{% endblock %}

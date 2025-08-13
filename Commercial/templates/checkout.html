@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Checkout — Technova{% endblock %}
+{% block content %}
+<div class="container py-5">
+  <h2 class="mb-4">Checkout</h2>
+  {% if not items %}
+    <div class="alert alert-warning">Your cart is empty.</div>
+    <a class="btn btn-warning text-dark" href="{{ url_for('shop') }}">Browse Products</a>
+  {% else %}
+  <div class="row g-4">
+    <div class="col-md-7">
+      <div class="card">
+        <div class="card-body">
+          <form method="post">
+            <div class="mb-3"><label class="form-label">Full Name</label><input name="name" class="form-control" required></div>
+            <div class="mb-3"><label class="form-label">Email</label><input name="email" type="email" class="form-control" required></div>
+            <div class="mb-3"><label class="form-label">Phone (07.. or 2547..)</label><input name="phone" class="form-control" required></div>
+            <div class="mb-3"><label class="form-label">Address</label><textarea name="address" class="form-control" rows="3"></textarea></div>
+            <button class="btn btn-warning text-dark btn-lg w-100">Pay with M-Pesa</button>
+          </form>
+          <p class="small text-muted mt-2">You’ll receive an M-Pesa prompt on your phone.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-5">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="mb-3">Order Summary</h5>
+          <ul class="list-group mb-3">
+            {% for it in items %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              <span>{{ it.name }} <small class="text-muted">x{{ it.qty }}</small></span>
+              <strong>{{ money(it.line) }}</strong>
+            </li>
+            {% endfor %}
+            <li class="list-group-item d-flex justify-content-between"><span>Subtotal</span><strong>{{ money(total) }}</strong></li>
+          </ul>
+          <p class="small text-muted mb-0">Payments: M-Pesa STK Push via Daraja.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

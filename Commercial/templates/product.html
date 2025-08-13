@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}{{ p.name }} — Technova{% endblock %}
+{% block content %}
+<div class="container py-5">
+  <div class="row g-4">
+    <div class="col-md-6"><img class="img-fluid rounded shadow" src="{{ p.img }}" alt="{{ p.name }}"></div>
+    <div class="col-md-6">
+      <h2>{{ p.name }}</h2>
+      <p class="lead">{{ money(p.price) }}</p>
+      <p>{{ p.desc }}</p>
+      <a class="btn btn-warning text-dark btn-lg" href="{{ url_for('cart_add', item_id=p.id) }}"><i class="fa fa-cart-plus me-2"></i>Add to Cart</a>
+      <a class="btn btn-outline-dark btn-lg ms-2" href="{{ url_for('shop') if p.type=='product' else url_for('services') }}">Back</a>
+    </div>
+  </div>
+</div>
+{% endblock %}
